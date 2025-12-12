@@ -4,6 +4,8 @@ const cors = require("cors");
 require("dotenv").config();
 const connectDB = require("./config/db");
 
+
+
 const app = express();
 
 // Connexion DB
@@ -13,7 +15,15 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-// Route test
+// Importer les routes
+const authRoutes = require("./routes/auth");
+const posterRoutes = require("./routes/posters");
+
+// Utiliser les routes
+app.use("/api/auth", authRoutes);
+app.use("/api/posters", posterRoutes);
+
+// Route de test
 app.get("/", (req, res) => {
   res.send("API Posters fonctionne !");
 });
