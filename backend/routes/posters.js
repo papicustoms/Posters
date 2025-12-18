@@ -27,7 +27,8 @@ router.post("/", auth, async (req, res) => {
 router.get("/", auth, async (req, res) => {
   try {
     const posters = await Poster.find()
-      .populate("author", "username avatar")
+      .populate("author", "avatar username")          // avatar inclus
+      .populate("comments.user", "avatar username")   // avatar commentaires
       .sort({ createdAt: -1 });
 
     res.json(posters);
